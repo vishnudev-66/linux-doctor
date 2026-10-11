@@ -23,3 +23,6 @@ include = ["linux_doctor*"]
 
 [tool.setuptools.package-data]
 linux_doctor = ["resources/*"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["linux_doctor"]
