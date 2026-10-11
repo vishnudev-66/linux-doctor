@@ -6,7 +6,7 @@ Read-only by design: it **inspects and explains; it never repairs, deletes or ru
 ## Features
 | Area | What you get |
 |---|---|
-| Dashboard | Live CPU / memory / disk / uptime cards |
+| Dashboard | Live CPU / memory / disk / uptime cards; one-click full health check |
 | System info | OS, kernel, CPU, RAM, battery, desktop |
 | Processes | Top CPU/memory processes (inspection only) |
 | Diagnostics | Workflows: slow computer, low storage, internet, failed services & logs, basic security hygiene, full health check |
@@ -14,9 +14,10 @@ Read-only by design: it **inspects and explains; it never repairs, deletes or ru
 | Network | Interface -> IP -> route -> TCP -> DNS ladder that tells DNS failures from routing failures; listening-port review |
 | Security | UFW state, pending updates, SSH exposure, key / shadow permissions. Never claims the system is "secure" |
 | AI (optional) | Local Ollama by default; redacted context; strict JSON validation; commands are display-only and labelled read-only vs review |
-| History | SQLite, private permissions, redacted evidence, retention, backup, delete-all |
+| History | SQLite, private permissions, redacted evidence, retention, backup, delete-all, export saved scans |
 | Reports | HTML / JSON / CSV, redacted by default, escaped output, CSV-injection safe |
 | Learn | Offline command library + explainer that warns about dangerous commands |
+| Desktop UI | Guided page descriptions, full settings, light/dark appearance, keyboard navigation (`Ctrl+1`–`Ctrl+8`) |
 | CLI | Everything also works headless: `linux-doctor scan full_health` |
 
 ## Quick start
