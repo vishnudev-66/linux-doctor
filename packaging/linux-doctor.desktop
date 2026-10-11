@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Linux Doctor
+Comment=Diagnose and understand your Linux system safely
+Exec=linux-doctor gui
+Icon=linux-doctor
+Terminal=false
+Categories=System;Monitor;
