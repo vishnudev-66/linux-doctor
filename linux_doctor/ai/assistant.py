@@ -34,12 +34,12 @@ def _strs(v, n=8, ln=300) -> list[str]:
 
 def validate_response(raw: str) -> Explanation:
     """Strictly parse and sanitise model output. Raises ValueError if unusable."""
-    m = re.search(r"\{.*\}", raw, re.S)
+    m = re.search(r"\{.*\}", raw, re.DOTALL)
     if not m:
         raise ValueError("no JSON object in AI response")
     data = json.loads(m.group(0))
     if not isinstance(data, dict) or not isinstance(data.get("summary"), str):
-        raise ValueError("AI response missing 'summary'")
+        raise ValueError("AI response missing 'summary'")  # noqa: TRY004 - invalid model payload
     steps = []
     for st in (data.get("next_steps") or [])[:6]:
         if not isinstance(st, dict):

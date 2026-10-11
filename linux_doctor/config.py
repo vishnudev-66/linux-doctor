@@ -69,7 +69,7 @@ class Settings:
     dns_test_name: str = "example.com"
 
     @classmethod
-    def from_dict(cls, raw: dict) -> "Settings":
+    def from_dict(cls, raw: dict) -> Settings:
         s = cls()
         for f in fields(cls):
             if f.name not in raw:

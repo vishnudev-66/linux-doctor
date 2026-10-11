@@ -54,6 +54,6 @@ def collect(include_hostname: bool = False) -> dict:
         b = psutil.sensors_battery()
         if b:
             info["battery"] = f"{b.percent:.0f}% ({'charging' if b.power_plugged else 'on battery'})"
-    except Exception:  # noqa: BLE001
-        pass
+    except (OSError, NotImplementedError) as exc:
+        info["battery"] = f"Unavailable ({type(exc).__name__})"
     return info

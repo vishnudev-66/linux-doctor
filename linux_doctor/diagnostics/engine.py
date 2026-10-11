@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import threading
 import time
-from typing import Callable
+from collections.abc import Callable
 
 from ..config import Settings, load_settings
 from ..core.models import Finding, RunResult, Severity
@@ -38,7 +38,7 @@ def run_workflow(name: str, settings: Settings | None = None,
             progress(chk.__name__)
         try:
             res.findings.extend(chk(s))
-        except Exception as exc:  # one broken check must never kill the scan
+        except Exception as exc:  # noqa: BLE001 - isolate failed checks and report them in the result
             res.errors.append(f"{chk.__name__}: {type(exc).__name__}: {exc}")
             res.findings.append(Finding("CHECK_FAILED", f"Check '{chk.__name__}' could not complete", Severity.INFO,
                                         "The check raised an error; other checks still ran.", {"error": str(exc)[:200]}))

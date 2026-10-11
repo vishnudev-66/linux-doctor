@@ -59,7 +59,8 @@ class OllamaProvider(Provider):
                            "format": "json", "options": {"temperature": 0.2}}).encode()
         req = urllib.request.Request(self.url, data=body, headers={"Content-Type": "application/json"})
         try:
-            with urllib.request.urlopen(req, timeout=timeout) as r:  # noqa: S310 - scheme validated above
+            # The endpoint scheme and host are validated when the provider is created.
+            with urllib.request.urlopen(req, timeout=timeout) as r:
                 data = json.loads(r.read(self.MAX_RESPONSE))
         except (urllib.error.URLError, OSError, ValueError) as exc:
             raise AIUnavailable(f"AI provider unreachable: {exc}") from exc

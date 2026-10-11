@@ -1,11 +1,18 @@
-import json, os, stat, tempfile, threading, time, unittest
+import json
+import os
+import stat
+import tempfile
+import threading
+import time
+import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from linux_doctor.ai import policy
 from linux_doctor.ai.assistant import validate_response
 from linux_doctor.ai.provider import AIUnavailable, OllamaProvider
 from linux_doctor.config import Settings
-from linux_doctor.core import runner
+from linux_doctor.core import runner, sysinfo
 from linux_doctor.core.models import Finding, RunResult, Severity
 from linux_doctor.core.redact import redact
 from linux_doctor.db.store import Store
@@ -29,7 +36,6 @@ class RunnerSafety(unittest.TestCase):
             runner.run("ip_addr", extra="x")
 
     def test_missing_binary_is_handled(self):
-        old = runner.COMMANDS.get("fake")
         runner.COMMANDS["fake"] = ["definitely-not-installed-xyz"]
         try:
             self.assertTrue(runner.run("fake").missing)
@@ -42,6 +48,13 @@ class Redaction(unittest.TestCase):
         t = redact("user bob@example.com from 192.168.1.20 token=abc123 path /home/alice/x aa:bb:cc:dd:ee:ff")
         for leak in ("bob@example.com", "192.168.1.20", "abc123", "alice", "aa:bb:cc"):
             self.assertNotIn(leak, t)
+
+
+class SystemInfo(unittest.TestCase):
+    def test_battery_inspection_error_is_reported(self):
+        with patch.object(sysinfo.psutil, "sensors_battery", side_effect=OSError):
+            info = sysinfo.collect()
+        self.assertEqual(info["battery"], "Unavailable (OSError)")
 
 
 class AIPolicy(unittest.TestCase):

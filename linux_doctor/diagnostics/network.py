@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import socket
-from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutTimeout
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FutTimeout
 
 import psutil
 

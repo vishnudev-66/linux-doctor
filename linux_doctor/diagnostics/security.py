@@ -1,7 +1,6 @@
 """Read-only security hygiene checks. Not an audit; never claims the system is secure."""
 from __future__ import annotations
 
-import os
 import stat
 from pathlib import Path
 
