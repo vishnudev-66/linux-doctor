@@ -19,7 +19,9 @@ if [ "$EXTRA" = "none" ]; then "$APP/venv/bin/pip" install --quiet "$SRC"; else 
 
 ln -sf "$APP/venv/bin/linux-doctor" "$BIN/linux-doctor"
 mkdir -p "$HOME/.local/share/applications" "$HOME/.local/share/icons/hicolor/scalable/apps"
-cp "$SRC/packaging/linux-doctor.desktop" "$HOME/.local/share/applications/"
+sed "s|^Exec=.*|Exec=$APP/venv/bin/linux-doctor gui|" \
+    "$SRC/packaging/linux-doctor.desktop" \
+    > "$HOME/.local/share/applications/linux-doctor.desktop"
 cp "$SRC/linux_doctor/resources/linux-doctor.svg" "$HOME/.local/share/icons/hicolor/scalable/apps/"
 command -v update-desktop-database >/dev/null && update-desktop-database "$HOME/.local/share/applications" || true
 

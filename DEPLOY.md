@@ -26,6 +26,7 @@ LD_EXTRAS=none ./scripts/install.sh   # CLI only (servers / headless)
 linux-doctor selfcheck
 linux-doctor gui
 ```
+The GUI install also adds Linux Doctor to the desktop application menu. Its launcher points directly to the isolated virtual environment, so it does not depend on the desktop session's `PATH`.
 
 ## 3B. System-wide .deb (for several users / fleet rollout)
 ```bash
